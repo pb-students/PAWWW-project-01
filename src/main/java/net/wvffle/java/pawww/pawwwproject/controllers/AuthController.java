@@ -8,11 +8,13 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.parameters.P;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -55,10 +57,14 @@ public class AuthController {
     @PostMapping("/register")
     public String register(
             @ModelAttribute("user") @Valid User user,
-            BindingResult bindingResult,
-            HttpServletRequest request
+            BindingResult bindingResult
     ) {
         if (bindingResult.hasErrors()) {
+            return "register";
+        }
+
+        if (userRepository.existsByUsername(user.getUsername())) {
+            bindingResult.addError(new FieldError("user", "username", "User already exists"));
             return "register";
         }
 
