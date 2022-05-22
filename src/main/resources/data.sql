@@ -1,1 +1,5 @@
 insert into categories (id, name) values (1, 'No category');
+insert into users (id, username, password, matching_password, first_name, last_name, age, role) values (2, 'xd', '$2a$10$IIm9YpKvMRZhgWyRN0Or2uHyv57mu9pliNMIWXDnmXOZr8j2aH4Ei', '$2a$10$IIm9YpKvMRZhgWyRN0Or2uHyv57mu9pliNMIWXDnmXOZr8j2aH4Ei', 'Raz', 'Dwa', 19, 'limited_user');
+insert into users (id, username, password, matching_password, first_name, last_name, age, role) values (3, 'xd1', '$2a$10$IIm9YpKvMRZhgWyRN0Or2uHyv57mu9pliNMIWXDnmXOZr8j2aH4Ei', '$2a$10$IIm9YpKvMRZhgWyRN0Or2uHyv57mu9pliNMIWXDnmXOZr8j2aH4Ei', 'Raz', 'Dwa', 19, 'limited_user');
+insert into users (id, username, password, matching_password, first_name, last_name, age, role) values (4, 'xd2', '$2a$10$IIm9YpKvMRZhgWyRN0Or2uHyv57mu9pliNMIWXDnmXOZr8j2aH4Ei', '$2a$10$IIm9YpKvMRZhgWyRN0Or2uHyv57mu9pliNMIWXDnmXOZr8j2aH4Ei', 'Raz', 'Dwa', 19, 'limited_user');
+insert into users (id, username, password, matching_password, first_name, last_name, age, role) values (5, 'admin', '$2a$10$IIm9YpKvMRZhgWyRN0Or2uHyv57mu9pliNMIWXDnmXOZr8j2aH4Ei', '$2a$10$IIm9YpKvMRZhgWyRN0Or2uHyv57mu9pliNMIWXDnmXOZr8j2aH4Ei', 'XDD', 'Dwa', 19, 'admin');
