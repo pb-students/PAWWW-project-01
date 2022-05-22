@@ -5,20 +5,20 @@ innym oraz wygodnego przeglądania i przeszukiwania w dogodnym czasie.
 
 ## DB
 ### Dane informacji:
-- [ ] tytuł
-    - [ ] 3-20 znakow
-- [ ] treść
-    - [ ] 5-500 znakow
-- [ ] link 
-    - [ ] opcjonalny
-- [ ] data dodania 
-    - [ ] dd-mm-yyyy
-- [ ] kategoria
+- [x] tytuł
+    - [x] 3-20 znakow
+- [x] treść
+    - [x] 5-500 znakow
+- [x] link 
+    - [x] opcjonalny
+- [x] data dodania 
+    - [x] dd-mm-yyyy
+- [x] kategoria
 
 ### Dane kategorii:
-- [ ] nazwa 
-    - [ ] 3-20 znakow
-    - [ ] lowercase
+- [x] nazwa 
+    - [x] 3-20 znakow
+    - [x] lowercase
 
 ### Dane użytkownika:
 - [x] imię 
