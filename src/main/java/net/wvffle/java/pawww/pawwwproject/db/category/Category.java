@@ -4,19 +4,16 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import net.wvffle.java.pawww.pawwwproject.db.user.User;
 import org.hibernate.Hibernate;
 import org.hibernate.validator.constraints.Length;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
+@Table(name = "categories")
 public @Getter @Setter @ToString @RequiredArgsConstructor class Category implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

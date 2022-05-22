@@ -57,13 +57,10 @@ public class SecurityConfiguration {
                     .failureHandler((request, response, exception) -> {
                         String usernameError = ValidationUtil.validateUsername(request.getParameter("username"));
                         String passwordError = ValidationUtil.validatePassword(request.getParameter("password"));
-                        if (passwordError == null) {
-                            passwordError = "Wrong password";
-                        }
 
                         QueryString qs = new QueryString();
                         qs.add("usernameError", usernameError);
-                        qs.add("passwordError", passwordError);
+                        qs.add("passwordError", passwordError == null ? "Wrong password" : passwordError);
 
                         response.sendRedirect("/login" + qs);
                     })
