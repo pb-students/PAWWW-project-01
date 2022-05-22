@@ -46,6 +46,7 @@ Zarządza użytkownikami
 
 ### `limited_user`
 Jest zarejestrowany, może przegladać udostępnione linki, ale nie może tworzyć informacji
+- [ ] Wyświetlenie informacji z udostępnionego linku
 
 ### `user`
 Może tworzyć informacje i udostępniać je innym, przeglądać w oddzielnym widoku informacje udostępnione dla niego
@@ -66,7 +67,6 @@ Ma dostęp tylko do strony początkowej i strony rejestracji
 - [x] Rejestracja
 - [x] Walidacja formularza
 - [x] Strona powitalna
-- [ ] Wyświetlenie informacji z udostępnionego linku
 
 ## Elementy techniczne
 - [x] Kontrolery
