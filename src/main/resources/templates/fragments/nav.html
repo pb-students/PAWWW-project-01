@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<body>
+<nav th:fragment="nav" class="navbar is-transparent">
+    <div class="navbar-brand">
+        <a class="navbar-item" href="/">
+            Store Everything
+        </a>
+        <div class="navbar-burger" data-target="navbar-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+
+    <div id="navbar-menu" class="navbar-menu">
+        <div class="navbar-start">
+            <a class="navbar-item" href="https://bulma.io/">
+                Home
+            </a>
+        </div>
+
+        <div class="navbar-end">
+            <div class="navbar-item">
+                <div class="buttons">
+                    <a th:unless="${#httpServletRequest.remoteUser}" class="button is-primary">
+                        <strong>Sign up</strong>
+                    </a>
+                    <a th:unless="${#httpServletRequest.remoteUser}" class="button is-light">
+                        Log in
+                    </a>
+                    <form th:if="${#httpServletRequest.remoteUser}" th:action="@{/logout}" method="post">
+                        <input type="submit" value="Log out" class="button is-light" />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+</body>
+</html>

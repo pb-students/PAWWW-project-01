@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html class="has-background-light">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>StoreEverything</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+</head>
+<body>
+
+<div th:replace="fragments/nav :: nav"></div>
+
+<section class="hero is-primary">
+    <div class="hero-body">
+        <div class="container">
+            <h1 class="title">
+                Log in
+            </h1>
+        </div>
+    </div>
+</section>
+<div class="level pt-6">
+    <div class="is-centered level-item">
+        <div class="card">
+            <div class="card-content">
+                <div class="content">
+                    <form th:action="@{/login}" method="post">
+                        <div class="field">
+                            <label class="label">Username</label>
+                            <div class="control">
+                                <input v-model="username" class="input" type="text" name="username" placeholder="Username" />
+                            </div>
+
+                            <p class="help is-danger" th:text="${usernameError}"></p>
+                        </div>
+                        <div class="field">
+                            <label class="label">Password</label>
+                            <div class="control">
+                                <input v-model="password" class="input" type="password" name="password" placeholder="Password" />
+                            </div>
+
+                            <p class="help is-danger" th:text="${passwordError}"></p>
+                        </div>
+
+                        <input class="button is-primary" type="submit" value="Log in" />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
