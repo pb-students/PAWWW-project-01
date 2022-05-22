@@ -23,10 +23,10 @@
         <div class="navbar-end">
             <div class="navbar-item">
                 <div class="buttons">
-                    <a th:unless="${#httpServletRequest.remoteUser}" class="button is-primary">
+                    <a th:unless="${#httpServletRequest.remoteUser}" th:href="@{/register}" class="button is-primary">
                         <strong>Sign up</strong>
                     </a>
-                    <a th:unless="${#httpServletRequest.remoteUser}" class="button is-light">
+                    <a th:unless="${#httpServletRequest.remoteUser}" th:href="@{/login}" class="button is-light">
                         Log in
                     </a>
                     <form th:if="${#httpServletRequest.remoteUser}" th:action="@{/logout}" method="post">

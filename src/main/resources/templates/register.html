@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html class="has-background-light">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>StoreEverything</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+</head>
+<body>
+
+<div th:replace="fragments/nav :: nav"></div>
+
+<section class="hero is-primary">
+    <div class="hero-body">
+        <div class="container">
+            <h1 class="title">
+                Sign up
+            </h1>
+        </div>
+    </div>
+</section>
+<div class="level pt-6">
+    <div class="is-centered level-item">
+        <div class="card">
+            <div class="card-content">
+                <div class="content">
+                    <form th:action="@{/register}" th:object="${user}" method="post">
+
+                        <div class="columns">
+                            <div class="field column">
+                                <label class="label">First name</label>
+                                <div class="control">
+                                    <input th:field="*{firstName}" class="input" type="text" placeholder="First name" />
+                                </div>
+
+                                <p th:each="error: ${#fields.errors('firstName')}" th:text="${error}" class="help is-danger"></p>
+                            </div>
+
+                            <div class="field column">
+                                <label class="label">Last name</label>
+                                <div class="control">
+                                    <input th:field="*{lastName}" class="input" type="text" placeholder="Last name" />
+                                </div>
+
+                                <p th:each="error: ${#fields.errors('lastName')}" th:text="${error}" class="help is-danger"></p>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label class="label">Username</label>
+                            <div class="control">
+                                <input th:field="*{username}" class="input" type="text" placeholder="Username" />
+                            </div>
+
+                            <p th:each="error: ${#fields.errors('username')}" th:text="${error}" class="help is-danger"></p>
+                        </div>
+
+                        <div class="field">
+                            <label class="label">Age</label>
+                            <div class="control">
+                                <input th:field="*{age}" class="input" type="text" placeholder="Age" />
+                            </div>
+
+                            <p th:each="error: ${#fields.errors('age')}" th:text="${error}" class="help is-danger"></p>
+                        </div>
+
+                        <div class="columns">
+                            <div class="field column">
+                                <label class="label">Password</label>
+                                <div class="control">
+                                    <input th:field="*{password}" class="input" type="password" placeholder="Password" />
+                                </div>
+
+                                <p th:each="error: ${#fields.errors('password')}" th:text="${error}" class="help is-danger"></p>
+                            </div>
+
+                            <div class="field column">
+                                <label class="label">Confirm password</label>
+                                <div class="control">
+                                    <input th:field="*{matchingPassword}" class="input" type="password" placeholder="Confirm password" />
+                                </div>
+
+                                <p th:each="error: ${#fields.globalErrors()}" th:text="${error}" class="help is-danger"></p>
+                            </div>
+                        </div>
+
+                        <input class="button is-primary" type="submit" value="Sign up" />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

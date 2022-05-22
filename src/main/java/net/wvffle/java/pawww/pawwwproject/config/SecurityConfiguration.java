@@ -1,26 +1,26 @@
 package net.wvffle.java.pawww.pawwwproject.config;
 
 import net.wvffle.java.pawww.pawwwproject.security.UserDetailsServiceImpl;
+import net.wvffle.java.pawww.pawwwproject.util.QueryString;
 import net.wvffle.java.pawww.pawwwproject.util.ValidationUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.thymeleaf.context.Context;
-import org.thymeleaf.spring5.SpringTemplateEngine;
-import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfiguration implements WebMvcConfigurer {
+public class SecurityConfiguration {
+    @Autowired
+    private AuthenticationConfiguration authenticationConfiguration;
 
     @Bean
     public UserDetailsService userDetailsService() {
@@ -40,9 +40,10 @@ public class SecurityConfiguration implements WebMvcConfigurer {
         return authProvider;
     }
 
-    @Autowired
-    protected void authenticationManager(AuthenticationManagerBuilder auth) throws Exception {
+    @Bean
+    AuthenticationManager authenticationManager(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(authenticationProvider());
+        return authenticationConfiguration.getAuthenticationManager();
     }
 
     @Bean
@@ -50,6 +51,7 @@ public class SecurityConfiguration implements WebMvcConfigurer {
         http.authorizeRequests()
                 .antMatchers("/").permitAll()
                 .antMatchers("/login*").permitAll()
+                .antMatchers("/register*").permitAll()
                 .anyRequest().authenticated()
                 .and()
                     .formLogin()
@@ -61,17 +63,16 @@ public class SecurityConfiguration implements WebMvcConfigurer {
                             passwordError = "Wrong password";
                         }
 
-                        response.sendRedirect("/login?usernameError=" + usernameError + "&passwordError=" + passwordError);
+                        QueryString qs = new QueryString();
+                        qs.add("usernameError", usernameError);
+                        qs.add("passwordError", passwordError);
+
+                        response.sendRedirect("/login" + qs);
                     })
                 .permitAll()
                 .and()
                     .logout().permitAll();
 
         return http.build();
-    }
-
-    @Override
-    public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/login").setViewName("login");
     }
 }

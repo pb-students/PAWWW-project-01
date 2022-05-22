@@ -28,18 +28,18 @@
                         <div class="field">
                             <label class="label">Username</label>
                             <div class="control">
-                                <input v-model="username" class="input" type="text" name="username" placeholder="Username" />
+                                <input class="input" type="text" name="username" placeholder="Username" />
                             </div>
 
-                            <p class="help is-danger" th:text="${usernameError}"></p>
+                            <p class="help is-danger" th:if="usernameError != null" th:text="${usernameError}"></p>
                         </div>
                         <div class="field">
                             <label class="label">Password</label>
                             <div class="control">
-                                <input v-model="password" class="input" type="password" name="password" placeholder="Password" />
+                                <input class="input" type="password" name="password" placeholder="Password" />
                             </div>
 
-                            <p class="help is-danger" th:text="${passwordError}"></p>
+                            <p class="help is-danger" th:if="passwordError != null" th:text="${passwordError}"></p>
                         </div>
 
                         <input class="button is-primary" type="submit" value="Log in" />

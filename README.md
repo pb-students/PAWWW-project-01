@@ -21,21 +21,21 @@ innym oraz wygodnego przeglądania i przeszukiwania w dogodnym czasie.
     - [ ] lowercase
 
 ### Dane użytkownika:
-- [ ] imię 
-    - [ ] 3-20 znakow
-    - [ ] litery
-    - [ ] pierwsza duża
-- [ ] nazwisko
-    - [ ] 3-50 znakow
-    - [ ] pierwsza duża
-    - [ ] litery
+- [x] imię 
+    - [x] 3-20 znakow
+    - [x] litery
+    - [x] pierwsza duża
+- [x] nazwisko
+    - [x] 3-50 znakow
+    - [x] pierwsza duża
+    - [x] litery
 - [x] login
-    - [ ] 3-20 znakow
-    - [ ] lowercase
+    - [x] 3-20 znakow
+    - [x] lowercase
 - [x] hasło
-    - [ ] 5+ znakow
-- [ ] wiek 
-    - [ ] 18+
+    - [x] 5+ znakow
+- [x] wiek 
+    - [x] 18+
 
 ## Role użytkowników
 ### `admin`
@@ -63,8 +63,8 @@ Może tworzyć informacje i udostępniać je innym, przeglądać w oddzielnym wi
 
 ### użytkownik niezalogowany
 Ma dostęp tylko do strony początkowej i strony rejestracji
-- [ ] Rejestracja
-- [ ] Walidacja formularza
+- [x] Rejestracja
+- [x] Walidacja formularza
 - [x] Strona powitalna
 - [ ] Wyświetlenie informacji z udostępnionego linku
 
@@ -78,8 +78,8 @@ Ma dostęp tylko do strony początkowej i strony rejestracji
       spring.datasource.username=postgres
       spring.datasource.password=password
     ```
-- [ ] Formularze z walidacją
-- [ ] Thymeleaf
+- [x] Formularze z walidacją
+- [x] Thymeleaf
 - [ ] Sesja
 - [ ] Ciasteczka
 - [ ] Usługa REST (do uwierzytelniania użytkowników)
