@@ -1,7 +1,10 @@
 package net.wvffle.java.pawww.pawwwproject.db.information;
 
+import net.wvffle.java.pawww.pawwwproject.db.category.Category;
+import net.wvffle.java.pawww.pawwwproject.db.user.User;
 import org.springframework.data.repository.CrudRepository;
 
 public interface InformationRepository extends CrudRepository<Information, Integer> {
-    Information findInformationById (Integer id);
+    Iterable<Information> findAllByAuthor (User author);
+    Iterable<Information> findAllByCategory (Category category);
 }
