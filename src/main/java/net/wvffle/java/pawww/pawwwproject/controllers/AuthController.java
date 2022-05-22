@@ -6,9 +6,12 @@ import net.wvffle.java.pawww.pawwwproject.security.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,6 +23,7 @@ import org.thymeleaf.spring5.view.ThymeleafView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 public class AuthController {
@@ -58,7 +62,8 @@ public class AuthController {
     @PostMapping("/register")
     public String register(
             @ModelAttribute("user") @Valid User user,
-            BindingResult bindingResult
+            BindingResult bindingResult,
+            HttpServletRequest request
     ) {
         if (bindingResult.hasErrors()) {
             return "register";
@@ -73,17 +78,13 @@ public class AuthController {
         userRepository.save(user);
 
         UserDetails userDetails = new UserDetailsImpl(user);
-        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
-                userDetails,
+        Authentication authentication = new UsernamePasswordAuthenticationToken(
+                userDetails.getUsername(),
                 userDetails.getPassword(),
                 userDetails.getAuthorities()
         );
 
-        authenticationManager.authenticate(authenticationToken);
-        if (authenticationToken.isAuthenticated()) {
-            SecurityContextHolder.getContext().setAuthentication(authenticationToken);
-        }
-
-        return "index";
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        return "redirect:/";
     }
 }
