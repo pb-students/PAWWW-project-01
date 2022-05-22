@@ -57,12 +57,11 @@ public class AuthController {
             @ModelAttribute("user") @Valid User user,
             BindingResult bindingResult
     ) {
-        if (bindingResult.hasErrors()) {
-            return "register";
-        }
-
         if (userRepository.existsByUsername(user.getUsername())) {
             bindingResult.addError(new FieldError("user", "username", "User already exists"));
+        }
+
+        if (bindingResult.hasErrors()) {
             return "register";
         }
 
