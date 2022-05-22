@@ -4,15 +4,29 @@ import net.wvffle.java.pawww.pawwwproject.db.user.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Locale;
 
 public record UserDetailsImpl(User user) implements org.springframework.security.core.userdetails.UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        SimpleGrantedAuthority authority = new SimpleGrantedAuthority(user.getRole());
-        return List.of(authority);
+        List<GrantedAuthority> authorities = new ArrayList<>();
+
+        String role = user.getRole();
+        authorities.add(new SimpleGrantedAuthority("ROLE_" + role.toUpperCase(Locale.ROOT)));
+
+        if (role.equals("admin")) {
+            authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+        }
+
+        if (role.equals("admin") || role.equals("user")) {
+            authorities.add(new SimpleGrantedAuthority("PUBLISH_INFORMATION"));
+        }
+
+        return authorities;
     }
 
     @Override
