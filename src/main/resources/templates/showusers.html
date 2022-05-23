@@ -24,23 +24,23 @@
   <table class="table">
     <thead>
     <tr>
-      <td class="title">ID</td>
-      <td class="title">Username</td>
-      <td class="title">First name</td>
-      <td class="title">Last name</td>
-      <td class="title">Age</td>
-      <td class="title">Role</td>
+      <th class="title">ID</th>
+      <th class="title">Username</th>
+      <th class="title">First name</th>
+      <th class="title">Last name</th>
+      <th class="title">Age</th>
+      <th class="title">Role</th>
     </tr>
     </thead>
     <tbody >
       <tr th:each="user: ${users}">
-        <td th:text="${user.id}"></td>
-        <td th:text="${user.username}"></td>
-        <td th:text="${user.firstName}"></td>
-        <td th:text="${user.lastName}"></td>
-        <td th:text="${user.age}"></td>
-        <td th:text="${user.role}"></td>
-        <td><button>Edit</button></td>
+        <th th:text="${user.id}"></th>
+        <th th:text="${user.username}"></th>
+        <th th:text="${user.firstName}"></th>
+        <th th:text="${user.lastName}"></th>
+        <th th:text="${user.age}"></th>
+        <th th:text="${user.role}"></th>
+        <th><button class="button is-primary">Edit</button></th>
       </tr>
     </tbody>
   </table>
