@@ -1,4 +1,4 @@
-!DOCTYPE html>
+<!DOCTYPE html>
 <html class="has-background-light">
 <head>
   <meta charset="utf-8">
@@ -8,26 +8,32 @@
 </head>
 <body>
 
-<!--<div th:replace="fragments/nav :: nav"></div>-->
+<div th:replace="fragments/nav :: nav"></div>
 
 <section class="hero is-primary">
-  <div class="hero-body">
-    <div class="container">
-      <h1 class="title">
-        Show users
-      </h1>
-    </div>
+    <div class="hero-body">
+      <div class="container">
+        <h1 class="title">
+          Show users
+        </h1>
+      </div>
   </div>
+
 </section>
-<div>
+<div class="is-centered level-item">
   <table class="table">
+    <thead>
     <tr>
-      <td>ID</td>
-      <td >Username</td>
-      <td >First name</td>
-      <td>Last name</td>
-      <td>Age</td>
+      <td class="title">ID</td>
+      <td class="title">Username</td>
+      <td class="title">First name</td>
+      <td class="title">Last name</td>
+      <td class="title">Age</td>
     </tr>
+    </thead>
+    <tbody>
+
+    </tbody>
   </table>
 </div>
 

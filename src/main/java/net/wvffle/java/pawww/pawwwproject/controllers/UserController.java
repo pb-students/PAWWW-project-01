@@ -9,11 +9,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class UserController {
-    @Autowired
-    private UserRepository userRepository;
+//    @Autowired
+//    private UserRepository userRepository;
 
-    @GetMapping("/list")
-    public Iterable<User> getCustomers() {
-        return userRepository.findAll();
-    }
+//    @GetMapping("/list")
+//    public Iterable<User> getCustomers() {
+//        return userRepository.findAll();
+//    }
 }
