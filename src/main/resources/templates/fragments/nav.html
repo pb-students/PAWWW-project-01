@@ -14,7 +14,7 @@
     </div>
 
     <div th:with="canShowUsers=${#authorization.expression('hasAuthority(''ROLE_ADMIN'')')}" class="navbar-brand">
-        <a th:if="${canShowUsers}" class="navbar-item" href="/">
+        <a th:if="${canShowUsers}" th:href="@{/list}" class="navbar-item" href="/">
             Show users
         </a>
         <div class="navbar-burger" data-target="navbar-menu">

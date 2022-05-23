@@ -16,8 +16,6 @@ public class IndexController {
     @Autowired
     private CategoryRepository categoryRepository;
 
-    @Autowired
-    private UserRepository userRepository;
     @GetMapping("/")
     public String index (HttpServletRequest request, Model model) {
         if (request.getRemoteUser() == null) {
