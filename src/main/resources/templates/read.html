@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html class="has-background-light">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>StoreEverything</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+</head>
+<body>
+
+<div th:replace="fragments/nav :: nav"></div>
+
+<div class="container pt-6">
+    <div th:with="canRead=${#authorization.expression('hasAuthority(''READ_INFORMATION'')')}" class="columns">
+        <div class="column">
+            <div th:if="${!canRead}" class="message is-warning">
+                <div class="message-header">
+                    <p>Unauthorized</p>
+                </div>
+                <div class="message-body">
+                    Log in to read information.
+                </div>
+            </div>
+            <div th:if="${canRead}" th:object="${information}" class="card">
+                <div class="card-header">
+                    <div th:text="*{title}?: 'No title'" class="card-header-title"></div>
+                </div>
+                <div class="card-content">
+                    <div class="columns">
+                        <div th:if="*{author}" class="field column is-narrow">
+                            <label class="label">Author</label>
+                            <p th:text="*{author.username}">
+                        </div>
+                        <div th:if="*{created_at}" class="field column is-narrow">
+                            <label class="label">Date</label>
+                            <p th:text="*{created_at}">
+                        </div>
+                        <div th:if="*{category}" class="field column is-narrow">
+                            <label class="label">Category</label>
+                            <p th:text="*{category.name}">
+                        </div>
+                    </div>
+                    <div th:if="*{content}" class="field">
+                        <label class="label">Content</label>
+                        <p th:text="*{content}">
+                    </div>
+                    <div th:if="*{link}" class="field">
+                        <label class="label">Link</label>
+                        <a th:text="*{link}" th:href="*{link}"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="column is-one-third">
+            <div class="panel">
+                <p class="panel-heading">
+                    Shared with me
+                </p>
+                <div class="panel-block">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

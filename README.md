@@ -46,7 +46,7 @@ Zarządza użytkownikami
 
 ### `limited_user`
 Jest zarejestrowany, może przegladać udostępnione linki, ale nie może tworzyć informacji
-- [ ] Wyświetlenie informacji z udostępnionego linku
+- [x] Wyświetlenie informacji z udostępnionego linku
 
 ### `user`
 Może tworzyć informacje i udostępniać je innym, przeglądać w oddzielnym widoku informacje udostępnione dla niego
@@ -54,7 +54,7 @@ Może tworzyć informacje i udostępniać je innym, przeglądać w oddzielnym wi
 - [ ] Walidacja formularza
 - [ ] Edycja na danych bieżących
 - [ ] Dodanie nowej kategorii
-- [ ] Wyświetlenie udostępnionych przez innych informacji
+- [x] Wyświetlenie udostępnionych przez innych informacji
 - [ ] Udostępnienie: ze wskazaniem na konkretnego użytkownika lub w linku
 - [ ] Wyświetlanie „swoich” informacji: sortowanie w obu kierunkach (data, kategoria, alfabetycznie)
 - [ ] Zapamiętanie kierunków i kryteriów sortowania
