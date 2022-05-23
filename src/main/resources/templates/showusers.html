@@ -29,6 +29,7 @@
       <td class="title">First name</td>
       <td class="title">Last name</td>
       <td class="title">Age</td>
+      <td class="title">Role</td>
     </tr>
     </thead>
     <tbody >
@@ -38,6 +39,8 @@
         <td th:text="${user.firstName}"></td>
         <td th:text="${user.lastName}"></td>
         <td th:text="${user.age}"></td>
+        <td th:text="${user.role}"></td>
+        <td><button>Edit</button></td>
       </tr>
     </tbody>
   </table>
