@@ -19,7 +19,7 @@ public class ReadController {
     private InformationRepository informationRepository;
 
     @GetMapping("/read/{id}")
-    public String read (HttpServletRequest request, Model model, @PathVariable("id") String id) {
+    public String read (Model model, @PathVariable("id") String id) {
         Information information = informationRepository.findById(Integer.parseInt(id)).orElse(new Information());
         model.addAttribute("information", information);
         return "read";
