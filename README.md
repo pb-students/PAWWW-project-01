@@ -40,7 +40,7 @@ innym oraz wygodnego przeglądania i przeszukiwania w dogodnym czasie.
 ## Role użytkowników
 ### `admin`
 Zarządza użytkownikami
-- [ ] Wyśw. listy użytkowników
+- [x] Wyśw. listy użytkowników
 - [ ] Zarządzanie rolami
 
 
