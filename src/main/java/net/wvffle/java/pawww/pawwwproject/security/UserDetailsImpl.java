@@ -20,6 +20,7 @@ public record UserDetailsImpl(User user) implements org.springframework.security
 
         if (role.equals("admin")) {
             authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+            authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
         }
 
         if (role.equals("admin") || role.equals("user")) {
