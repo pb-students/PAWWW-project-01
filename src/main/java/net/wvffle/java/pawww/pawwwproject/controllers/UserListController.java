@@ -16,7 +16,8 @@ public class UserListController {
     private UserRepository userRepository;
 
     @GetMapping("/list")
-    public String userList () {
+    public String userList (Model model) {
+        model.addAttribute("users", userRepository.findAll());
         return "showusers";
     }
 //    @GetMapping("/list")
