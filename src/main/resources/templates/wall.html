@@ -63,7 +63,7 @@
                     <div class="field">
                         <label class="label">Link</label>
                         <div class="control">
-                            <input th:disabled="${!canPublish}" th:field="*{content}" class="input" type="text" placeholder="https://wvffle.net">
+                            <input th:disabled="${!canPublish}" th:field="*{link}" class="input" type="text" placeholder="https://wvffle.net">
                         </div>
                         <p th:each="error: ${#fields.errors('link')}" th:text="${error}" class="help is-danger"></p>
                     </div>
