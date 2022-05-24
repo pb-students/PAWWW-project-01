@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:sec="http://www.w3.org/1999/xhtml">
 <body>
 <nav th:fragment="nav" class="navbar is-transparent">
     <div class="navbar-brand">
@@ -13,12 +13,14 @@
         </div>
     </div>
 
-    <div th:with="canShowUsers=${#authorization.expression('hasRole(''ROLE_ADMIN'')')}" class="navbar-brand">
-        <a th:if="${canShowUsers}" th:href="@{/list}" class="navbar-item" href="/">
-            Show users
-        </a>
-        <div class="navbar-burger" data-target="navbar-menu">
-        </div>
+    <div class="navbar-brand">
+        <sec:authorize access="hasRole(''ROLE_ADMIN'')">
+            <a th:href="@{/list}" class="navbar-item" href="/">
+                Show users
+            </a>
+            <div class="navbar-burger" data-target="navbar-menu">
+            </div>
+        </sec:authorize>
     </div>
 
     <div id="navbar-menu" class="navbar-menu">
