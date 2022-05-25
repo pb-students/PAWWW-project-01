@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html class="has-background-light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>StoreEverything</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+</head>
+<body>
+
+<div th:replace="fragments/nav :: nav"></div>
+
+<section class="hero is-primary">
+    <div class="hero-body">
+      <div class="container">
+        <h1 class="title">
+          Show users
+        </h1>
+      </div>
+  </div>
+
+</section>
+<div class="is-centered level-item">
+  <table class="table">
+    <thead>
+    <tr>
+      <th class="title">ID</th>
+      <th class="title">Username</th>
+      <th class="title">First name</th>
+      <th class="title">Last name</th>
+      <th class="title">Age</th>
+      <th class="title">Role</th>
+    </tr>
+    </thead>
+    <tbody >
+      <th th:each="user: ${users}">
+        <tr th:text="${user.id}"></tr>
+        <tr th:text="${user.username}"></tr>
+        <tr th:text="${user.firstName}"></tr>
+        <tr th:text="${user.lastName}"></tr>
+        <tr th:text="${user.age}"></tr>
+        <tr th:text="${user.role}"></tr>
+        <tr><button class="button is-primary">Edit</button></tr>
+      </th>
+    </tbody>
+  </table>
+</div>
+
+</body>
+</html>
