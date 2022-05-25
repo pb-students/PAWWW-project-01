@@ -33,15 +33,15 @@
     </tr>
     </thead>
     <tbody >
-      <th th:each="user: ${users}">
-        <tr th:text="${user.id}"></tr>
-        <tr th:text="${user.username}"></tr>
-        <tr th:text="${user.firstName}"></tr>
-        <tr th:text="${user.lastName}"></tr>
-        <tr th:text="${user.age}"></tr>
-        <tr th:text="${user.role}"></tr>
-        <tr><button class="button is-primary">Edit</button></tr>
-      </th>
+      <tr th:each="user: ${users}">
+        <th th:text="${user.id}"></th>
+        <th th:text="${user.username}"></th>
+        <th th:text="${user.firstName}"></th>
+        <th th:text="${user.lastName}"></th>
+        <th th:text="${user.age}"></th>
+        <th th:text="${user.role}"></th>
+        <th><button class="button is-primary">Edit</button></th>
+      </tr>
     </tbody>
   </table>
 </div>
