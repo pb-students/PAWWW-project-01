@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 
 @Controller
-public class UserListController {
+public class AdminController {
     @Autowired
     private UserRepository userRepository;
 
