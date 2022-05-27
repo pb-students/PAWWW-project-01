@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="has-background-light">
+<html class="has-background-light" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -33,7 +33,7 @@
         </thead>
         <tbody>
         <tr th:each="info: ${information}">
-            <div th:object="${info}">
+            <div th:object="${info}" th:with="authorUserName=*{author.username}">
                 <th th:text="${info.id}"></th>
                 <th th:text="${info.title}"></th>
                 <th th:text="*{author.username}"></th>
@@ -42,6 +42,15 @@
                 <th>
                     <a th:href="@{/read/{id}(id=${info.id})}" class="button is-primary">Show</a>
                 </th>
+
+                <div sec:authorize="isAuthenticated()" th:with="currentUserName=${#authentication.name}">
+                    <th th:if="${currentUserName == authorUserName}">
+                        <a th:href="@{/read/{id}(id=${info.id})}" class="button is-primary">Edit</a>
+                    </th>
+                    <th th:if="${currentUserName == authorUserName}">
+                        <a th:href="@{/read/{id}(id=${info.id})}" class="button is-primary">Delete</a>
+                    </th>
+                </div>
             </div>
         </tr>
         </tbody>
