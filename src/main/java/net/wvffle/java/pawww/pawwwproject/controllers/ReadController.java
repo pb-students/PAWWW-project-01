@@ -19,9 +19,15 @@ public class ReadController {
     private InformationRepository informationRepository;
 
     @GetMapping("/read/{id}")
-    public String read (Model model, @PathVariable("id") String id) {
+    public String readInformation (Model model, @PathVariable("id") String id) {
         Information information = informationRepository.findById(Integer.parseInt(id)).orElse(new Information());
         model.addAttribute("information", information);
+        return "readinformation";
+    }
+
+    @GetMapping("/read")
+    public String read (Model model) {
+        model.addAttribute("information", informationRepository.findAll());
         return "read";
     }
 }

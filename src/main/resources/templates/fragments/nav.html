@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:sec="http://www.w3.org/1999/xhtml">
 <body>
 <nav th:fragment="nav" class="navbar is-transparent">
     <div class="navbar-brand">
@@ -10,6 +10,14 @@
             <span></span>
             <span></span>
             <span></span>
+        </div>
+    </div>
+
+    <div th:with="canRead=${#authorization.expression('hasAuthority(''READ_INFORMATION'')')}" class="navbar-brand">
+        <a th:if="${canRead}" th:href="@{/read}" class="navbar-item" href="/">
+            Show information
+        </a>
+        <div class="navbar-burger" data-target="navbar-menu">
         </div>
     </div>
 
