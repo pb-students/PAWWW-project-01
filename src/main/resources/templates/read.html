@@ -27,6 +27,8 @@
             <th class="title">ID</th>
             <th class="title">Title</th>
             <th class="title">Author</th>
+            <th class="title">Category</th>
+            <th class="title">Date</th>
         </tr>
         </thead>
         <tbody>
@@ -35,6 +37,8 @@
                 <th th:text="${info.id}"></th>
                 <th th:text="${info.title}"></th>
                 <th th:text="*{author.username}"></th>
+                <th th:text="*{category.name}"></th>
+                <th th:text="${info.created_at}"></th>
                 <th>
                     <a th:href="@{/read/{id}(id=${info.id})}" class="button is-primary">Show</a>
                 </th>
