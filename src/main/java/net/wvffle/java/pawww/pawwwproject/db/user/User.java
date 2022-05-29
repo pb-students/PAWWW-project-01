@@ -47,9 +47,6 @@ public @Getter @Setter @ToString @RequiredArgsConstructor class User implements 
 
     private String role = "limited_user";
 
-    private String sortOrder = "created";
-    private Boolean sortDesc = true;
-    
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
