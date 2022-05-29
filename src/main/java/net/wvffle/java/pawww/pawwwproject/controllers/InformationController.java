@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import javax.servlet.http.HttpServletRequest;
 import net.wvffle.java.pawww.pawwwproject.db.information.InformationRepository;
+import net.wvffle.java.pawww.pawwwproject.db.user.User;
 import net.wvffle.java.pawww.pawwwproject.db.user.UserRepository;
 import org.springframework.data.domain.Sort;
 
@@ -19,11 +20,23 @@ public class InformationController {
     @Autowired
     private UserRepository userRepository;
     
+    @GetMapping("/information/list")
+    public String list (HttpServletRequest request, Model model) {
+        User user = userRepository.findByUsername(request.getRemoteUser());
+        Sort sort = Sort.by(user.getSortOrder());
+        if (user.getSortDesc()) sort = sort.descending();
+        model.addAttribute("informations", informationRepository.findAllByAuthor(user, sort));
+        return "information/list";
+    }
+    
     @GetMapping("/information/list/{order}/{desc}")
-    public String list (HttpServletRequest request, Model model, @PathVariable("order") String order, @PathVariable("desc") Boolean desc) {
+    public String listOrdered (HttpServletRequest request, Model model, @PathVariable("order") String order, @PathVariable("desc") Boolean desc) {
+        User user = userRepository.findByUsername(request.getRemoteUser());
+        user.setSortOrder(order);
+        user.setSortDesc(desc);
         Sort sort = Sort.by(order);
         if (desc) sort = sort.descending();
-        model.addAttribute("informations", informationRepository.findAllByAuthor(userRepository.findByUsername(request.getRemoteUser()), sort));
+        model.addAttribute("informations", informationRepository.findAllByAuthor(user, sort));
         return "information/list";
     }
     

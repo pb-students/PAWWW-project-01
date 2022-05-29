@@ -57,7 +57,7 @@ Może tworzyć informacje i udostępniać je innym, przeglądać w oddzielnym wi
 - [x] Wyświetlenie udostępnionych przez innych informacji
 - [ ] Udostępnienie: ze wskazaniem na konkretnego użytkownika lub w linku
 - [x] Wyświetlanie „swoich” informacji: sortowanie w obu kierunkach (data, kategoria, alfabetycznie)
-- [ ] Zapamiętanie kierunków i kryteriów sortowania
+- [x] Zapamiętanie kierunków i kryteriów sortowania
 - [ ] Filtrowanie według daty (od aktualnej) i kategorii (od najbardziej popularnej)
 - [x] Logowanie
 - [ ] Zapis do bazy danych dopiero przy wylogowaniu/wygaśnięciu sesji
