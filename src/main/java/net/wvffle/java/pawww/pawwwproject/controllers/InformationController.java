@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletRequest;
 import net.wvffle.java.pawww.pawwwproject.db.information.InformationRepository;
 import net.wvffle.java.pawww.pawwwproject.db.user.UserRepository;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.JpaSort;
 
 @Controller
 public class InformationController {
@@ -21,9 +23,11 @@ public class InformationController {
     @Autowired
     private UserRepository userRepository;
     
-    @GetMapping("/information/list")
-    public String list (HttpServletRequest request, Model model) {
-        model.addAttribute("informations", informationRepository.findAllByAuthor(userRepository.findByUsername(request.getRemoteUser())));
+    @GetMapping("/information/list/{order}/{desc}")
+    public String list (HttpServletRequest request, Model model, @PathVariable("order") String order, @PathVariable("desc") Boolean desc) {
+        Sort sort = Sort.by(order);
+        if (desc) sort = sort.descending();
+        model.addAttribute("informations", informationRepository.findAllByAuthor(userRepository.findByUsername(request.getRemoteUser()), sort));
         return "information/list";
     }
     
