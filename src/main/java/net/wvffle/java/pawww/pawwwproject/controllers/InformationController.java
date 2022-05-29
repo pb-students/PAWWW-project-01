@@ -12,16 +12,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import net.wvffle.java.pawww.pawwwproject.db.information.InformationRepository;
+import net.wvffle.java.pawww.pawwwproject.db.user.UserRepository;
 
 @Controller
-public class ReadController {
+public class InformationController {
     @Autowired
     private InformationRepository informationRepository;
-
-    @GetMapping("/read/{id}")
+    @Autowired
+    private UserRepository userRepository;
+    
+    @GetMapping("/information/list")
+    public String list (HttpServletRequest request, Model model) {
+        model.addAttribute("informations", informationRepository.findAllByAuthor(userRepository.findByUsername(request.getRemoteUser())));
+        return "information/list";
+    }
+    
+    
+    @GetMapping("/information/read/{id}")
     public String read (Model model, @PathVariable("id") String id) {
         Information information = informationRepository.findById(Integer.parseInt(id)).orElse(new Information());
         model.addAttribute("information", information);
-        return "read";
+        return "information/read";
     }
 }
