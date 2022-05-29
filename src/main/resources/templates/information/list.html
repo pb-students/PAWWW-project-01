@@ -11,27 +11,51 @@
 <div th:replace="fragments/nav :: nav"></div>
 
 <div class="container pt-6">
-    <div th:with="canRead=${#authorization.expression('hasAuthority(''READ_INFORMATION'')')}" class="columns">
+    <div class="columns">
         <div class="column">
-            <div th:if="${!canRead}" class="message is-warning">
-                <div class="message-header">
-                    <p>Unauthorized</p>
-                </div>
-                <div class="message-body">
-                    Log in to view informations.
-                </div>
-            </div>
-            <div th:if="${canRead}">
-                <a class="button" href="/information/list/created/false">Date asc</a>
-                <a class="button" href="/information/list/created/true">Date desc</a>
-                <a class="button" href="/information/list/category/false">Category asc</a>
-                <a class="button" href="/information/list/category/true">Category desc</a>
-                <a class="button" href="/information/list/title/false">Title asc</a>
-                <a class="button" href="/information/list/title/true">Title desc</a>
+            <div class="field has-addons">
+                <form action="/information/by-me/sort" method="post" class="control">
+                    <input type="hidden" name="ordering" value="created">
+                    <input type="hidden" name="descending" value="false">
+                    <input type="submit" value="Date ASC" class="button">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                </form>
+                <form action="/information/by-me/sort" method="post" class="control">
+                    <input type="hidden" name="ordering" value="created">
+                    <input type="hidden" name="descending" value="true">
+                    <input type="submit" value="Date DESC" class="button">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                </form>
+
+                <form action="/information/by-me/sort" method="post" class="control">
+                    <input type="hidden" name="ordering" value="category">
+                    <input type="hidden" name="descending" value="false">
+                    <input type="submit" value="Category ASC" class="button">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                </form>
+                <form action="/information/by-me/sort" method="post" class="control">
+                    <input type="hidden" name="ordering" value="category">
+                    <input type="hidden" name="descending" value="true">
+                    <input type="submit" value="Category DESC" class="button">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                </form>
+
+                <form action="/information/by-me/sort" method="post" class="control">
+                    <input type="hidden" name="ordering" value="title">
+                    <input type="hidden" name="descending" value="false">
+                    <input type="submit" value="Title ASC" class="button">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                </form>
+                <form action="/information/by-me/sort" method="post" class="control">
+                    <input type="hidden" name="ordering" value="title">
+                    <input type="hidden" name="descending" value="true">
+                    <input type="submit" value="Title DESC" class="button">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                </form>
             </div>
             <br>
             
-            <div th:if="${canRead}" th:each="information: ${informations}" th:object="${information}" class="card">
+            <div th:each="information: ${informations}" th:object="${information}" class="card mb-2">
                 <div class="card-header">
                     <div th:text="*{title}?: 'No title'" class="card-header-title"></div>
                 </div>
