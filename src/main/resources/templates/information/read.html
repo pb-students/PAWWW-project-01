@@ -31,9 +31,9 @@
                             <label class="label">Author</label>
                             <p th:text="*{author.username}">
                         </div>
-                        <div th:if="*{created_at}" class="field column is-narrow">
+                        <div th:if="*{created}" class="field column is-narrow">
                             <label class="label">Date</label>
-                            <p th:text="*{created_at}">
+                            <p th:text="*{created}">
                         </div>
                         <div th:if="*{category}" class="field column is-narrow">
                             <label class="label">Category</label>

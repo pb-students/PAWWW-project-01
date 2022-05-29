@@ -21,6 +21,16 @@
                     Log in to view informations.
                 </div>
             </div>
+            <div th:if="${canRead}">
+                <a class="button" href="/information/list/created/false">Date asc</a>
+                <a class="button" href="/information/list/created/true">Date desc</a>
+                <a class="button" href="/information/list/category/false">Category asc</a>
+                <a class="button" href="/information/list/category/true">Category desc</a>
+                <a class="button" href="/information/list/title/false">Title asc</a>
+                <a class="button" href="/information/list/title/true">Title desc</a>
+            </div>
+            <br>
+            
             <div th:if="${canRead}" th:each="information: ${informations}" th:object="${information}" class="card">
                 <div class="card-header">
                     <div th:text="*{title}?: 'No title'" class="card-header-title"></div>
@@ -31,9 +41,9 @@
                             <label class="label">Author</label>
                             <p th:text="*{author.username}">
                         </div>
-                        <div th:if="*{created_at}" class="field column is-narrow">
+                        <div th:if="*{created}" class="field column is-narrow">
                             <label class="label">Date</label>
-                            <p th:text="*{created_at}">
+                            <p th:text="*{created}">
                         </div>
                         <div th:if="*{category}" class="field column is-narrow">
                             <label class="label">Category</label>
