@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="has-background-light">
+<html class="has-background-light" xmlns:modelAttribute="http://www.w3.org/1999/xhtml">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -32,15 +32,25 @@
       <th class="title">Role</th>
     </tr>
     </thead>
-    <tbody >
-      <tr th:each="user: ${users}">
-        <th th:text="${user.id}"></th>
-        <th th:text="${user.username}"></th>
-        <th th:text="${user.firstName}"></th>
-        <th th:text="${user.lastName}"></th>
-        <th th:text="${user.age}"></th>
-        <th th:text="${user.role}"></th>
-        <th><button class="button is-primary">Edit</button></th>
+    <tbody>
+      <tr th:each="user, idx: ${users}">
+          <td th:text="${user.id}"></td>
+          <td th:text="${user.username}"></td>
+          <td th:text="${user.firstName}"></td>
+          <td th:text="${user.lastName}"></td>
+        <td th:text="${user.age}"></td>
+        <form th:action="@{/changerole/{user}/{role}(user=${user.id}, role=${user.role})}" method="POST">
+          <td>
+              <select >
+                <option th:value="${user.role}" th:text="'limited_user'" th:selected="${user.role == 'limited_user'}"></option>
+                <option th:value="${user.role}" th:text="'user'" th:selected="${user.role == 'user'} "></option>
+                <option th:value="${user.role}" th:text="'admin'" th:selected="${user.role == 'admin'}"></option>
+              </select>
+          </td>
+          <td>
+            <button class="button is-primary" type="submit" value="changerole">Submit</button>
+          </td>
+        </form>
       </tr>
     </tbody>
   </table>
