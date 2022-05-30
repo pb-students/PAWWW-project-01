@@ -56,8 +56,8 @@ Może tworzyć informacje i udostępniać je innym, przeglądać w oddzielnym wi
 - [ ] Dodanie nowej kategorii
 - [x] Wyświetlenie udostępnionych przez innych informacji
 - [ ] Udostępnienie: ze wskazaniem na konkretnego użytkownika lub w linku
-- [ ] Wyświetlanie „swoich” informacji: sortowanie w obu kierunkach (data, kategoria, alfabetycznie)
-- [ ] Zapamiętanie kierunków i kryteriów sortowania
+- [x] Wyświetlanie „swoich” informacji: sortowanie w obu kierunkach (data, kategoria, alfabetycznie)
+- [x] Zapamiętanie kierunków i kryteriów sortowania
 - [ ] Filtrowanie według daty (od aktualnej) i kategorii (od najbardziej popularnej)
 - [x] Logowanie
 - [ ] Zapis do bazy danych dopiero przy wylogowaniu/wygaśnięciu sesji
@@ -70,7 +70,7 @@ Ma dostęp tylko do strony początkowej i strony rejestracji
 
 ## Elementy techniczne
 - [x] Kontrolery
-- [ ] Baza danych
+- [x] Baza danych
   - Obecnie mamy H2, ktore dziala w pamieci, trzeba dodac postgresa
     ```properties
       # application.properties
@@ -80,7 +80,7 @@ Ma dostęp tylko do strony początkowej i strony rejestracji
     ```
 - [x] Formularze z walidacją
 - [x] Thymeleaf
-- [ ] Sesja
+- [x] Sesja
 - [ ] Ciasteczka
 - [ ] Usługa REST (do uwierzytelniania użytkowników)
 - [ ] Klient REST

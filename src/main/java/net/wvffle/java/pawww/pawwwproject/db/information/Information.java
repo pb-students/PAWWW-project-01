@@ -31,7 +31,7 @@ public @Getter @Setter @ToString @RequiredArgsConstructor class Information impl
 
     @NotNull
     @Pattern(message = "Date needs to be in dd-mm-yyyy format", regexp = "((0[1-9])|([12][0-9])|(3[01]))-((0[0-9])|(1[012]))-2\\d{3}")
-    private String created_at;
+    private String created;
 
     @ManyToOne
     @JoinColumn(name = "category_id")

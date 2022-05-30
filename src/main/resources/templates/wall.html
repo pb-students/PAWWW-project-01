@@ -13,15 +13,7 @@
 <div class="container pt-6">
     <div th:with="canPublish=${#authorization.expression('hasAuthority(''PUBLISH_INFORMATION'')')}" class="columns">
         <div class="column">
-            <div th:if="${!canPublish}" class="message is-warning">
-                <div class="message-header">
-                    <p>Account limited</p>
-                </div>
-
-                <div class="message-body">
-                    Your account is limited. You can only browse shared information but you cannot publish them. Please contact the administrator if you want to become a publisher.
-                </div>
-            </div>
+            <div th:if="${!canPublish}" th:include="fragments/limited_user_warning :: warning" class="pb-2"></div>
             <div class="card">
                 <div class="card-header">
                     <div class="card-header-title">

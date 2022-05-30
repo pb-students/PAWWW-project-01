@@ -11,17 +11,9 @@
 <div th:replace="fragments/nav :: nav"></div>
 
 <div class="container pt-6">
-    <div th:with="canRead=${#authorization.expression('hasAuthority(''READ_INFORMATION'')')}" class="columns">
+    <div class="columns">
         <div class="column">
-            <div th:if="${!canRead}" class="message is-warning">
-                <div class="message-header">
-                    <p>Unauthorized</p>
-                </div>
-                <div class="message-body">
-                    Log in to read information.
-                </div>
-            </div>
-            <div th:if="${canRead}" th:object="${information}" class="card">
+            <div th:object="${information}" class="card">
                 <div class="card-header">
                     <div th:text="*{title}?: 'No title'" class="card-header-title"></div>
                 </div>
@@ -31,9 +23,9 @@
                             <label class="label">Author</label>
                             <p th:text="*{author.username}">
                         </div>
-                        <div th:if="*{created_at}" class="field column is-narrow">
+                        <div th:if="*{created}" class="field column is-narrow">
                             <label class="label">Date</label>
-                            <p th:text="*{created_at}">
+                            <p th:text="*{created}">
                         </div>
                         <div th:if="*{category}" class="field column is-narrow">
                             <label class="label">Category</label>
