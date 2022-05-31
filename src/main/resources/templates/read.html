@@ -45,7 +45,7 @@
 
                 <div sec:authorize="isAuthenticated()" th:with="currentUserName=${#authentication.name}">
                     <th th:if="${currentUserName == authorUserName}">
-                        <a th:href="@{/read/{id}(id=${info.id})}" class="button is-primary">Edit</a>
+                        <a th:href="@{/edit/{id}(id=${info.id})}" class="button is-primary">Edit</a>
                     </th>
                     <th th:if="${currentUserName == authorUserName}">
                         <a th:href="@{/read/{id}(id=${info.id})}" class="button is-primary">Delete</a>
