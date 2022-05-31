@@ -10,50 +10,53 @@
 
 <div th:replace="fragments/nav :: nav"></div>
 
-<section class="hero is-primary">
-    <div class="hero-body">
-      <div class="container">
-        <h1 class="title">
-          Show users
-        </h1>
+<div class="is-centered level-item mb-4">
+  <div class="pt-4">
+    <div class="message is-danger" th:if="userNotFound != null">
+      <div class="message-header">
+        <p>User not found</p>
       </div>
-  </div>
 
-</section>
-<div class="is-centered level-item">
-  <table class="table">
-    <thead>
-    <tr>
-      <th class="title">ID</th>
-      <th class="title">Username</th>
-      <th class="title">First name</th>
-      <th class="title">Last name</th>
-      <th class="title">Age</th>
-      <th class="title">Role</th>
-    </tr>
-    </thead>
-    <tbody>
-      <tr th:each="user, idx: ${users}">
-          <td th:text="${user.id}"></td>
-          <td th:text="${user.username}"></td>
-          <td th:text="${user.firstName}"></td>
-          <td th:text="${user.lastName}"></td>
+      <div class="message-body">
+        User with id '<span th:text="${userNotFound}"></span>' is not found.
+      </div>
+    </div>
+
+    <table class="table">
+      <thead>
+      <tr>
+        <th class="title">ID</th>
+        <th class="title">Username</th>
+        <th class="title">First name</th>
+        <th class="title">Last name</th>
+        <th class="title">Age</th>
+        <th class="title">Role</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="user: ${users}">
+        <th th:text="${user.id}"></th>
+        <td th:text="${user.username}"></td>
+        <td th:text="${user.firstName}"></td>
+        <td th:text="${user.lastName}"></td>
         <td th:text="${user.age}"></td>
-        <form th:action="@{/changerole/{user}/{role}(user=${user.id}, role=${user.role})}" method="POST">
+        <form th:action="@{/changerole/{id}(id=${user.id})}" method="POST">
+          <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
           <td>
-              <select >
-                <option th:value="${user.role}" th:text="'limited_user'" th:selected="${user.role == 'limited_user'}"></option>
-                <option th:value="${user.role}" th:text="'user'" th:selected="${user.role == 'user'} "></option>
-                <option th:value="${user.role}" th:text="'admin'" th:selected="${user.role == 'admin'}"></option>
-              </select>
+            <select name="role">
+              <option value="limited_user" th:selected="${user.role == 'limited_user'}">limited_user</option>
+              <option value="user" th:selected="${user.role == 'user'} ">user</option>
+              <option value="admin" th:selected="${user.role == 'admin'}">admin</option>
+            </select>
           </td>
           <td>
-            <button class="button is-primary" type="submit" value="changerole">Submit</button>
+            <input class="button is-primary" type="submit" value="Save"/>
           </td>
         </form>
       </tr>
-    </tbody>
-  </table>
+      </tbody>
+    </table>
+  </div>
 </div>
 
 </body>

@@ -7,8 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 
@@ -23,20 +21,25 @@ public class AdminController {
         return "showusers";
     }
 
-    @PostMapping("/changerole/{user}/{role}")
+    @PostMapping("/changerole/{id}")
     public String userRole (
-            @PathVariable("user") String userID, @PathVariable("role") String role,
-             Model model
+            @PathVariable String id,
+            @RequestParam String role,
+            Model model
     ) {
+        Optional<User> optionalUser = userRepository.findById(Integer.parseInt(id));
+        if (optionalUser.isEmpty()) {
+            // TODO: Add error to model
+            model.addAttribute("userNotFound", id);
+            return "redirect:/list";
+        }
 
-        System.out.println("Jesteśmy tutaj");
-        System.out.println("User id to" + userID);
-        System.out.println("rola to" + role);
-        User user = userRepository.findById(Integer.parseInt(userID)).orElse(new User());
+        model.addAttribute("userNotFound", null);
+
+        User user = optionalUser.get();
         user.setRole(role);
         userRepository.save(user);
-        model.addAttribute("users", userRepository.findAll());
-        return "showusers";
+        return "redirect:/list";
     }
 
 }
