@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Objects;
 import java.util.Optional;
 
 
@@ -29,7 +30,6 @@ public class AdminController {
     ) {
         Optional<User> optionalUser = userRepository.findById(Integer.parseInt(id));
         if (optionalUser.isEmpty()) {
-            // TODO: Add error to model
             model.addAttribute("userNotFound", id);
             return "redirect:/list";
         }
