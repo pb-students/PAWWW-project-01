@@ -1,5 +1,7 @@
 package net.wvffle.java.pawww.pawwwproject.controllers;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import net.wvffle.java.pawww.pawwwproject.db.information.Information;
 import net.wvffle.java.pawww.pawwwproject.components.session.SessionSort;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import net.wvffle.java.pawww.pawwwproject.db.information.InformationRepository;
 import net.wvffle.java.pawww.pawwwproject.db.user.User;
 import net.wvffle.java.pawww.pawwwproject.db.user.UserRepository;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -46,5 +49,13 @@ public class InformationController {
         Information information = informationRepository.findById(Integer.parseInt(id)).orElse(new Information());
         model.addAttribute("information", information);
         return "information/read";
+    }
+    
+    @PostMapping("/publish")
+    public String publish (HttpServletRequest request, @ModelAttribute Information information) {
+        information.setAuthor(userRepository.findByUsername(request.getRemoteUser()));
+        information.setCreated(LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
+        informationRepository.save(information);
+        return "redirect:/information/by-me";
     }
 }

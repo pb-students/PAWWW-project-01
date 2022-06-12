@@ -17,7 +17,7 @@ import java.io.Serializable;
 @Entity
 public @Getter @Setter @ToString @RequiredArgsConstructor class Information implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private @Getter Integer id;
 
     @Length(min = 3, max = 20)
