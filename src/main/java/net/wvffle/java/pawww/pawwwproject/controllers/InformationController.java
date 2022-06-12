@@ -81,4 +81,13 @@ public class InformationController {
         informationRepository.save(information);
         return "redirect:/information/read/" + information.getId().toString();
     }
+    
+    @GetMapping("/information/delete/{id}")
+    public String delete (HttpServletRequest request, Model model, @PathVariable("id") String id) {
+        User user = userRepository.findByUsername(request.getRemoteUser());
+        Information information = informationRepository.findById(Integer.parseInt(id)).orElse(new Information());
+        if (information.getAuthor() != user) return "redirect:/";
+        informationRepository.delete(information);
+        return "redirect:/information/by-me";
+    }
 }

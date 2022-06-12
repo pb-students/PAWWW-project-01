@@ -50,7 +50,7 @@ Jest zarejestrowany, może przegladać udostępnione linki, ale nie może tworzy
 
 ### `user`
 Może tworzyć informacje i udostępniać je innym, przeglądać w oddzielnym widoku informacje udostępnione dla niego
-- [ ] dodanie/edycja/usunięcie przez siebie zebranych informacji
+- [x] dodanie/edycja/usunięcie przez siebie zebranych informacji
 - [ ] Walidacja formularza
 - [ ] Edycja na danych bieżących
 - [ ] Dodanie nowej kategorii
