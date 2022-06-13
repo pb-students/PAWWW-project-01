@@ -22,6 +22,8 @@ public class IndexController {
 
         model.addAttribute("categories", categoryRepository.findAll());
         model.addAttribute("information", new Information());
+
         return "wall";
     }
 }
+

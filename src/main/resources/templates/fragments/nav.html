@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:sec="http://www.w3.org/1999/xhtml">
 <body>
 <nav th:fragment="nav" class="navbar is-transparent">
     <div class="navbar-brand">
@@ -10,6 +10,14 @@
             <span></span>
             <span></span>
             <span></span>
+        </div>
+    </div>
+
+    <div class="navbar-brand">
+        <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/list}" class="navbar-item" href="/">
+            Show users
+        </a>
+        <div class="navbar-burger" data-target="navbar-menu">
         </div>
     </div>
 
