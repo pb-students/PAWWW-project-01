@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class IndexController {
+    
     @Autowired
     private CategoryRepository categoryRepository;
 
@@ -26,4 +27,5 @@ public class IndexController {
 
         return "wall";
     }
+    
 }
