@@ -19,3 +19,9 @@ vscode:
 github:
   prebuilds:
     master: true
+    pullRequests: true
+    addBadge: true
+    addCheck: true
+    addLabel: true
+    branches: false
+    pullRequestsFromForks: false
