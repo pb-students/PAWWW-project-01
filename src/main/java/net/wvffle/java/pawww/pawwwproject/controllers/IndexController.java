@@ -26,3 +26,4 @@ public class IndexController {
         return "wall";
     }
 }
+
