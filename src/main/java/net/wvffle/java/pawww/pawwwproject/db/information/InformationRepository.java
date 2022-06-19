@@ -5,6 +5,8 @@ import net.wvffle.java.pawww.pawwwproject.db.user.User;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.CrudRepository;
 
+import java.util.Optional;
+
 public interface InformationRepository extends CrudRepository<Information, Integer> {
     Iterable<Information> findAllByAuthor (User author, Sort sort);
     Iterable<Information> findAllByCategory (Category category);
