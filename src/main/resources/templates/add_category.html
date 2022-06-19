@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html class="has-background-light">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>StoreEverything</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+</head>
+<body>
+
+<div th:replace="fragments/nav :: nav"></div>
+
+
+<div th:with="canAddCategory=${#authorization.expression('hasAuthority(''ADD_CATEGORY'')')}" class="container pt-6">
+    <div th:if="${canAddCategory}" class="columns">
+        <div class="column">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-header-title">
+                        Category
+                    </div>
+                </div>
+
+                <form th:object="${category}" th:action="@{/addCategory}" class="card-content" method="post">
+                    <div class="column">
+                        <div class="field column">
+                            <label class="label">Name<sup class="has-text-danger is-size-7">*</sup></label>
+                            <div class="control">
+                                <input th:disabled="${!canAddCategory}" th:field="*{name}" class="input" type="text"
+                                       placeholder="Name">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-footer">
+                        <input th:if="${canAddCategory}" type="submit" class="card-footer-item" value="Add">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

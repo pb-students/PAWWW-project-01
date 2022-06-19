@@ -21,6 +21,14 @@
         </div>
     </div>
 
+    <div th:with="canAddCategory=${#authorization.expression('hasAuthority(''ADD_CATEGORY'')')}" class="navbar-brand">
+        <a th:if="${canAddCategory}" th:href="@{/addCategory}" class="navbar-item" href="/">
+           Add category
+        </a>
+        <div class="navbar-burger" data-target="navbar-menu">
+        </div>
+    </div>
+
     <div id="navbar-menu" class="navbar-menu">
         <div class="navbar-start">
             <a th:if="${#httpServletRequest.remoteUser}" class="navbar-item" href="/information/by-me">
