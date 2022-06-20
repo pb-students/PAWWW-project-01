@@ -1,5 +1,5 @@
-insert into categories (id, name) values (1, 'No category');
-insert into categories (id, name) values (2, 'Web development');
+insert into categories (name) values ('No category');
+insert into categories (name) values ('Web development');
 
 -- password: root
 insert into users (id, username, first_name, last_name, password, age, role) values (1, 'root', '', '', '$2a$10$TqVi8gz4KVoyZ2bO/bJl6uZC1oW2H.EmeY.1tnri6SXNcBQZTRgE6', 666, 'admin');

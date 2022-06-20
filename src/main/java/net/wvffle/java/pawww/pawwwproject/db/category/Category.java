@@ -16,7 +16,7 @@ import java.util.Objects;
 @Table(name = "categories")
 public @Getter @Setter @ToString @RequiredArgsConstructor class Category implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private @Getter Integer id;
 
     @Length(min = 3, max = 20)
