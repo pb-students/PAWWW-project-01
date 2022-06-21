@@ -12,32 +12,49 @@
 
 
 <div th:with="canAddCategory=${#authorization.expression('hasAuthority(''ADD_CATEGORY'')')}" class="container pt-6">
-    <div th:if="${canAddCategory}" class="columns">
-        <div class="column">
-            <div class="card">
-                <div class="card-header">
-                    <div class="card-header-title">
-                        Category
+    <div class="message is-danger" th:if="${categoryAddedSuccessful == false}">
+        <div class="message-header">
+            <p>Category adding failed</p>
+        </div>
+
+        <div class="message-body">
+            Something went wrong
+        </div>
+    </div>
+
+    <div class="message is-primary" th:if="${categoryAddedSuccessful == true}">
+        <div class="message-header">
+            <p>Successful adding category </p>
+        </div>
+
+        <div class="message-body">
+            The category has been added and can be used in creating the information
+        </div>
+    </div>
+
+        <div class="card">
+            <div class="card-header">
+                <div class="card-header-title">
+                    Category
+                </div>
+            </div>
+
+            <form th:object="${category}" th:action="@{/categories/new}" class="card-content" method="post">
+                <div class="column">
+                    <div class="field column">
+                        <label class="label">Name<sup class="has-text-danger is-size-7">*</sup></label>
+                        <div class="control">
+                            <input th:disabled="${!canAddCategory}" th:field="*{name}" class="input" type="text"
+                                   placeholder="Name">
+                        </div>
                     </div>
                 </div>
 
-                <form th:object="${category}" th:action="@{/categories/new}" class="card-content" method="post">
-                    <div class="column">
-                        <div class="field column">
-                            <label class="label">Name<sup class="has-text-danger is-size-7">*</sup></label>
-                            <div class="control">
-                                <input th:disabled="${!canAddCategory}" th:field="*{name}" class="input" type="text"
-                                       placeholder="Name">
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card-footer">
-                        <input th:if="${canAddCategory}" type="submit" class="card-footer-item" value="Add">
-                    </div>
-                </form>
-            </div>
-        </div>
+                <div class="card-footer">
+                    <input th:if="${canAddCategory}" type="submit" class="card-footer-item button is-primary"
+                           value="Add">
+                </div>
+            </form>
     </div>
 
 </div>
