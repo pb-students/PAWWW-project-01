@@ -67,8 +67,7 @@ public class InformationController {
     public String edit (HttpServletRequest request, Model model, @PathVariable("id") String id) {
         User user = userRepository.findByUsername(request.getRemoteUser());
         Information information = informationRepository.findById(Integer.parseInt(id)).orElse(new Information());
-        if (information.getAuthor() == user) model.addAttribute("userAuthorized", true);
-        else model.addAttribute("userAuthorized", false);
+        model.addAttribute("userAuthorized", information.getAuthor() == user);
         
         model.addAttribute("categories", categoryRepository.findAll());
         model.addAttribute("information", information);
