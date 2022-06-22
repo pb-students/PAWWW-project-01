@@ -41,7 +41,7 @@ innym oraz wygodnego przeglądania i przeszukiwania w dogodnym czasie.
 ### `admin`
 Zarządza użytkownikami
 - [x] Wyśw. listy użytkowników
-- [ ] Zarządzanie rolami
+- [x] Zarządzanie rolami
 
 
 ### `limited_user`
@@ -53,12 +53,12 @@ Może tworzyć informacje i udostępniać je innym, przeglądać w oddzielnym wi
 - [ ] dodanie/edycja/usunięcie przez siebie zebranych informacji
 - [ ] Walidacja formularza
 - [ ] Edycja na danych bieżących
-- [ ] Dodanie nowej kategorii
+- [x] Dodanie nowej kategorii
 - [x] Wyświetlenie udostępnionych przez innych informacji
 - [ ] Udostępnienie: ze wskazaniem na konkretnego użytkownika lub w linku
 - [x] Wyświetlanie „swoich” informacji: sortowanie w obu kierunkach (data, kategoria, alfabetycznie)
 - [x] Zapamiętanie kierunków i kryteriów sortowania
-- [ ] Filtrowanie według daty (od aktualnej) i kategorii (od najbardziej popularnej)
+- [x] Filtrowanie według daty (od aktualnej) i kategorii (od najbardziej popularnej)
 - [x] Logowanie
 - [ ] Zapis do bazy danych dopiero przy wylogowaniu/wygaśnięciu sesji
 
