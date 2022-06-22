@@ -22,7 +22,7 @@
     </div>
 
     <div th:with="canAddCategory=${#authorization.expression('hasAuthority(''ADD_CATEGORY'')')}" class="navbar-brand">
-        <a th:if="${canAddCategory}" th:href="@{/categories/new}" class="navbar-item" href="/">
+        <a th:if="${canAddCategory}" th:href="@{/categories/new}" class="navbar-item">
            Add category
         </a>
     </div>
