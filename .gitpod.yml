@@ -1,0 +1,27 @@
+image:
+  file: .gitpod.Dockerfile
+
+tasks:
+  - init: mvn install spring-boot:start spring-boot:stop -DskipTests
+    command: mvn spring-boot:run
+
+ports:
+  - port: 8080
+    visibility: public
+    onOpen: open-preview
+
+vscode:
+  extensions:
+    - vscjava.vscode-java-pack
+    - Pivotal.vscode-boot-dev-pack
+    - GabrielBB.vscode-lombok
+
+github:
+  prebuilds:
+    master: true
+    pullRequests: true
+    addBadge: true
+    addCheck: true
+    addLabel: true
+    branches: false
+    pullRequestsFromForks: false

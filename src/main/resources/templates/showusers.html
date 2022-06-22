@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html class="has-background-light" xmlns:modelAttribute="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>StoreEverything</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+</head>
+<body>
+
+<div th:replace="fragments/nav :: nav"></div>
+
+<div class="is-centered level-item mb-4">
+  <div class="pt-4">
+    <div class="message is-danger" th:if="${userNotFound != null}">
+      <div class="message-header">
+        <p>User not found</p>
+      </div>
+
+      <div class="message-body">
+        User with id '<span th:text="${userNotFound}"></span>' is not found.
+      </div>
+    </div>
+
+    <table class="table">
+      <thead>
+      <tr>
+        <th class="title">ID</th>
+        <th class="title">Username</th>
+        <th class="title">First name</th>
+        <th class="title">Last name</th>
+        <th class="title">Age</th>
+        <th class="title">Role</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="user: ${users}">
+        <th th:text="${user.id}"></th>
+        <td th:text="${user.username}"></td>
+        <td th:text="${user.firstName}"></td>
+        <td th:text="${user.lastName}"></td>
+        <td th:text="${user.age}"></td>
+        <form th:action="@{/changerole/{id}(id=${user.id})}" method="POST">
+          <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+          <td>
+            <select name="role">
+              <option value="limited_user" th:selected="${user.role == 'limited_user'}">limited_user</option>
+              <option value="user" th:selected="${user.role == 'user'} ">user</option>
+              <option value="admin" th:selected="${user.role == 'admin'}">admin</option>
+            </select>
+          </td>
+          <td>
+            <input class="button is-primary" type="submit" value="Save" />
+          </td>
+        </form>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</body>
+</html>
