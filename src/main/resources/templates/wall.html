@@ -59,9 +59,9 @@
                         </div>
                         <p th:each="error: ${#fields.errors('link')}" th:text="${error}" class="help is-danger"></p>
                     </div>
-                    <div class="card-footer">
-                        <input th:if="${canPublish}" type="submit" class="card-footer-item" value="Publish">
-                        <a th:if="${canPublish}" class="card-footer-item">Share</a>
+                    <div th:if="${canPublish}" class="card-footer">
+                        <input type="submit" class="card-footer-item" value="Publish">
+                        <a class="card-footer-item">Share</a>
                     </div>
                 </form>
             </div>
