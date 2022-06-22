@@ -17,8 +17,6 @@
         <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/list}" class="navbar-item" href="/">
             Show users
         </a>
-        <div class="navbar-burger" data-target="navbar-menu">
-        </div>
     </div>
 
     <div th:with="canAddCategory=${#authorization.expression('hasAuthority(''ADD_CATEGORY'')')}" class="navbar-brand">
