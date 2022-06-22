@@ -27,7 +27,11 @@ public class CategoryController {
     }
 
     @PostMapping("/categories/new")
-    public String addCategory( @ModelAttribute("category") @Valid Category category, Model model, BindingResult bindingResult) {
+    public String addCategory(
+            @ModelAttribute("category") @Valid Category category,
+            BindingResult bindingResult,
+            Model model
+    ) {
         if (categoryRepository.existsByName(category.getName())) {
             bindingResult.addError(new FieldError("category", "name", "Category already exists"));
         }

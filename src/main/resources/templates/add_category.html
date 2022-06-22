@@ -33,16 +33,14 @@
                 <div class="field">
                     <label class="label">Name<sup class="has-text-danger is-size-7">*</sup></label>
                     <div class="control">
-                        <input th:disabled="${!canAddCategory}" th:field="*{name}" class="input" type="text"
-                               placeholder="Name">
+                        <input th:disabled="${!canAddCategory}" th:field="*{name}" class="input" type="text" placeholder="Name">
                     </div>
 
                     <p th:each="error: ${#fields.errors('name')}" th:text="${error}" class="help is-danger"></p>
                 </div>
 
                 <div class="card-footer">
-                    <input th:if="${canAddCategory}" type="submit" class="card-footer-item button is-primary"
-                           value="Add">
+                    <input th:if="${canAddCategory}" type="submit" class="card-footer-item button is-primary" value="Add">
                 </div>
             </form>
     </div>
