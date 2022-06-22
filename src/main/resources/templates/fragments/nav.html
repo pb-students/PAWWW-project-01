@@ -29,7 +29,7 @@
 
     <div id="navbar-menu" class="navbar-menu">
         <div class="navbar-start">
-            <a th:if="${#httpServletRequest.remoteUser}" class="navbar-item" href="/information/by-me">
+            <a th:if="${#httpServletRequest.remoteUser}" class="navbar-item" th:href="@{/information/by-me}">
                 Information list
             </a>
         </div>
