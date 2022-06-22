@@ -49,7 +49,8 @@ public class InformationController {
     @GetMapping("/information/read/{id}")
     public String read (Model model, @PathVariable("id") String id) {
         Information information = informationRepository.findById(Integer.parseInt(id)).orElse(new Information());
-        // TODO: check if user is permitted to view this information
+        // TODO: check if user is actually permitted to view this information
+        model.addAttribute("userAuthorized", true);
         model.addAttribute("information", information);
         return "information/read";
     }
@@ -66,7 +67,8 @@ public class InformationController {
     public String edit (HttpServletRequest request, Model model, @PathVariable("id") String id) {
         User user = userRepository.findByUsername(request.getRemoteUser());
         Information information = informationRepository.findById(Integer.parseInt(id)).orElse(new Information());
-        if (information.getAuthor() != user) return "redirect:/";
+        if (information.getAuthor() == user) model.addAttribute("userAuthorized", true);
+        else model.addAttribute("userAuthorized", false);
         
         model.addAttribute("categories", categoryRepository.findAll());
         model.addAttribute("information", information);
@@ -74,19 +76,35 @@ public class InformationController {
     }
     
     @PostMapping("/information/edit")
-    public String edit (HttpServletRequest request, @ModelAttribute Information information) {
+    public String edit (HttpServletRequest request, Model model, @ModelAttribute Information information) {
         User user = userRepository.findByUsername(request.getRemoteUser());
-        if (information.getAuthor() != user) return "redirect:/index";
+        if (information.getAuthor() != user) {
+            model.addAttribute("userAuthorized", false);
+            return "information/edit";
+        }
         
         informationRepository.save(information);
         return "redirect:/information/read/" + information.getId().toString();
     }
     
     @GetMapping("/information/delete/{id}")
-    public String delete (HttpServletRequest request, Model model, @PathVariable("id") String id) {
+    public String deleteGet (HttpServletRequest request, Model model, @PathVariable("id") String id) {
         User user = userRepository.findByUsername(request.getRemoteUser());
         Information information = informationRepository.findById(Integer.parseInt(id)).orElse(new Information());
-        if (information.getAuthor() != user) return "redirect:/";
+        if (information.getAuthor() == user) model.addAttribute("userAuthorized", true);
+        else model.addAttribute("userAuthorized", false);
+        return "information/delete";
+    }
+    
+    @PostMapping("/information/delete/{id}")
+    public String deletePost (HttpServletRequest request, Model model, @PathVariable("id") String id) {
+        User user = userRepository.findByUsername(request.getRemoteUser());
+        Information information = informationRepository.findById(Integer.parseInt(id)).orElse(new Information());
+        if (information.getAuthor() != user) {
+            model.addAttribute("userAuthorized", false);
+            return "information/delete";
+        }
+        
         informationRepository.delete(information);
         return "redirect:/information/by-me";
     }
