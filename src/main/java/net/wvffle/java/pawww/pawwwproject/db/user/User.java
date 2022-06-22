@@ -17,7 +17,7 @@ import java.util.Objects;
 @Table(name = "users")
 public @Getter @Setter @ToString @RequiredArgsConstructor class User implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private @Getter Integer id;
 
     @Column(unique = true)
