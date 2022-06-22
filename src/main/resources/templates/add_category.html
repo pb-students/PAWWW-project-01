@@ -12,16 +12,6 @@
 
 
 <div th:with="canAddCategory=${#authorization.expression('hasAuthority(''ADD_CATEGORY'')')}" class="container pt-6">
-    <div class="message is-danger" th:if="${categoryAddedSuccessful == false}">
-        <div class="message-header">
-            <p>Category adding failed</p>
-        </div>
-
-        <div class="message-body">
-            Something went wrong
-        </div>
-    </div>
-
     <div class="message is-primary" th:if="${categoryAddedSuccessful == true}">
         <div class="message-header">
             <p>Successful adding category </p>
@@ -40,14 +30,14 @@
             </div>
 
             <form th:object="${category}" th:action="@{/categories/new}" class="card-content" method="post">
-                <div class="column">
-                    <div class="field column">
-                        <label class="label">Name<sup class="has-text-danger is-size-7">*</sup></label>
-                        <div class="control">
-                            <input th:disabled="${!canAddCategory}" th:field="*{name}" class="input" type="text"
-                                   placeholder="Name">
-                        </div>
+                <div class="field">
+                    <label class="label">Name<sup class="has-text-danger is-size-7">*</sup></label>
+                    <div class="control">
+                        <input th:disabled="${!canAddCategory}" th:field="*{name}" class="input" type="text"
+                               placeholder="Name">
                     </div>
+
+                    <p th:each="error: ${#fields.errors('name')}" th:text="${error}" class="help is-danger"></p>
                 </div>
 
                 <div class="card-footer">
