@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
-import java.util.Iterator;
 
 @Controller
 public class CategoryController {
@@ -28,7 +27,7 @@ public class CategoryController {
 
     @PostMapping("/categories/new")
     public String addCategory(
-            @ModelAttribute("category") @Valid Category category,
+            @ModelAttribute @Valid Category category,
             BindingResult bindingResult,
             Model model
     ) {

@@ -51,8 +51,8 @@ Jest zarejestrowany, może przegladać udostępnione linki, ale nie może tworzy
 ### `user`
 Może tworzyć informacje i udostępniać je innym, przeglądać w oddzielnym widoku informacje udostępnione dla niego
 - [x] dodanie/edycja/usunięcie przez siebie zebranych informacji
-- [ ] Walidacja formularza
-- [x] Edycja na danych bieżących
+- [x] Walidacja formularza
+- [ ] Edycja na danych bieżących
 - [x] Dodanie nowej kategorii
 - [x] Wyświetlenie udostępnionych przez innych informacji
 - [ ] Udostępnienie: ze wskazaniem na konkretnego użytkownika lub w linku
@@ -71,13 +71,6 @@ Ma dostęp tylko do strony początkowej i strony rejestracji
 ## Elementy techniczne
 - [x] Kontrolery
 - [x] Baza danych
-  - Obecnie mamy H2, ktore dziala w pamieci, trzeba dodac postgresa
-    ```properties
-      # application.properties
-      spring.datasource.url=jdbc:postgres://localhost:5432/db
-      spring.datasource.username=postgres
-      spring.datasource.password=password
-    ```
 - [x] Formularze z walidacją
 - [x] Thymeleaf
 - [x] Sesja
