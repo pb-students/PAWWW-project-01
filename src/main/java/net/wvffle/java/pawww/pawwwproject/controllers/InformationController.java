@@ -2,6 +2,8 @@ package net.wvffle.java.pawww.pawwwproject.controllers;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
+
 import net.wvffle.java.pawww.pawwwproject.db.information.Information;
 import net.wvffle.java.pawww.pawwwproject.components.session.SessionSort;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,8 @@ import net.wvffle.java.pawww.pawwwproject.db.information.InformationRepository;
 import net.wvffle.java.pawww.pawwwproject.db.user.User;
 import net.wvffle.java.pawww.pawwwproject.db.user.UserRepository;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -58,7 +62,16 @@ public class InformationController {
     }
     
     @PostMapping("/publish")
-    public String publish (HttpServletRequest request, @ModelAttribute @Valid Information information, BindingResult bindingResult) {
+    public String publish (@ModelAttribute @Valid Information information, BindingResult bindingResult, HttpServletRequest request, Model model) {
+        List<FieldError> errors = bindingResult.getFieldErrors().stream()
+            .filter(err -> !err.getField().equals("author") && !err.getField().equals("created"))
+            .toList();
+
+        if (errors.size() > 0) {
+            model.addAttribute("categories", categoryRepository.findAll());
+            return "wall";
+        }
+        
         information.setAuthor(userRepository.findByUsername(request.getRemoteUser()));
         information.setCreated(LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
         informationRepository.save(information);
@@ -77,10 +90,20 @@ public class InformationController {
     }
     
     @PostMapping("/information/edit")
-    public String edit (HttpServletRequest request, Model model, @ModelAttribute @Valid Information information, BindingResult bindingResult) {
+    public String edit (@ModelAttribute @Valid Information information, BindingResult bindingResult, HttpServletRequest request, Model model) {
+        List<FieldError> errors = bindingResult.getFieldErrors().stream()
+            .filter(err -> !err.getField().equals("author") && !err.getField().equals("created"))
+            .toList();
+
+        if (errors.size() > 0) {
+            model.addAttribute("categories", categoryRepository.findAll());
+            return "information/edit/";
+        }
+        
         User user = userRepository.findByUsername(request.getRemoteUser());
         if (information.getAuthor() != user) {
             model.addAttribute("userAuthorized", false);
+            model.addAttribute("categories", categoryRepository.findAll());
             return "information/edit";
         }
         
