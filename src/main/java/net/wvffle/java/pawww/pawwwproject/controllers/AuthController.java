@@ -4,7 +4,6 @@ import net.wvffle.java.pawww.pawwwproject.db.user.User;
 import net.wvffle.java.pawww.pawwwproject.db.user.UserRepository;
 import net.wvffle.java.pawww.pawwwproject.security.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -22,9 +21,6 @@ import javax.validation.Valid;
 public class AuthController {
     @Autowired
     UserRepository userRepository;
-
-    @Autowired
-    private AuthenticationManager authenticationManager;
 
     @Autowired
     PasswordEncoder passwordEncoder;
