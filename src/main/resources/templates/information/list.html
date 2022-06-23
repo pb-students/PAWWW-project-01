@@ -74,13 +74,10 @@
                             <p th:text="*{category.name}">
                         </div>
                     </div>
-                    <div th:if="*{content}" class="field">
-                        <label class="label">Content</label>
-                        <p th:text="*{content}">
-                    </div>
-                    <div th:if="*{link}" class="field">
-                        <label class="label">Link</label>
-                        <a th:text="*{link}" th:href="*{link}"></a>
+                    <div class="field">
+                        <a class="button" th:href="@{/information/read/{id}(id=*{id})}">Read</a>
+                        <a class="button" th:href="@{/information/edit/{id}(id=*{id})}">Edit</a>
+                        <a class="button" th:href="@{/information/delete/{id}(id=*{id})}">Delete</a>
                     </div>
                 </div>
             </div>

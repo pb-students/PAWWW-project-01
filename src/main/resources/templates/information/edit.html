@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html class="has-background-light">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>StoreEverything</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+</head>
+<body>
+
+<div th:replace="fragments/nav :: nav"></div>
+
+<div class="container pt-6">
+    <div th:with="canPublish=${#authorization.expression('hasAuthority(''PUBLISH_INFORMATION'')')}" class="columns">
+        <div class="column">
+            <div th:if="${!canPublish}" th:include="fragments/limited_user_warning :: warning" class="pb-2"></div>
+            <div th:if="${canPublish && !userAuthorized}" th:include="fragments/unauthorized_user_warning :: warning" class="pb-2"></div>
+            <div th:if="${canPublish && userAuthorized}" class="card">
+                <div class="card-header">
+                    <div class="card-header-title">
+                        Edit information
+                    </div>
+                </div>
+                <form th:object="${information}" th:action="@{/publish}" class="card-content" method="post">
+                    <div class="columns">
+                        <div class="field column">
+                            <label class="label">Title<sup class="has-text-danger is-size-7">*</sup></label>
+                            <div class="control">
+                                <input th:field="*{title}" class="input" type="text" placeholder="Title">
+                            </div>
+                            <p th:each="error: ${#fields.errors('title')}" th:text="${error}" class="help is-danger"></p>
+                        </div>
+
+                        <div class="field column is-narrow">
+                            <label class="label">Category</label>
+                            <div class="control">
+                                <div class="select">
+                                    <select th:field="*{category}">
+                                        <option th:each="category: ${categories}" th:text="${category.name}" th:value="${category.id}"></option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <p th:each="error: ${#fields.errors('category')}" th:text="${error}" class="help is-danger"></p>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Content<sup class="has-text-danger is-size-7">*</sup></label>
+                        <div class="control">
+                            <textarea th:field="*{content}" class="textarea" placeholder="Content"></textarea>
+                        </div>
+                        <p th:each="error: ${#fields.errors('content')}" th:text="${error}" class="help is-danger"></p>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Link</label>
+                        <div class="control">
+                            <input th:field="*{link}" class="input" type="text" placeholder="https://wvffle.net">
+                        </div>
+                        <p th:each="error: ${#fields.errors('link')}" th:text="${error}" class="help is-danger"></p>
+                    </div>
+                    <input type="hidden" name="id" th:field="*{id}">
+                    <div class="card-footer">
+                        <input type="submit" class="card-footer-item" value="Save">
+                        <a class="card-footer-item">Share</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="column is-one-third">
+            <div class="panel">
+                <p class="panel-heading">
+                    Shared with me
+                </p>
+                <div class="panel-block">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

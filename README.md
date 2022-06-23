@@ -50,9 +50,9 @@ Jest zarejestrowany, może przegladać udostępnione linki, ale nie może tworzy
 
 ### `user`
 Może tworzyć informacje i udostępniać je innym, przeglądać w oddzielnym widoku informacje udostępnione dla niego
-- [ ] dodanie/edycja/usunięcie przez siebie zebranych informacji
+- [x] dodanie/edycja/usunięcie przez siebie zebranych informacji
 - [ ] Walidacja formularza
-- [ ] Edycja na danych bieżących
+- [x] Edycja na danych bieżących
 - [x] Dodanie nowej kategorii
 - [x] Wyświetlenie udostępnionych przez innych informacji
 - [ ] Udostępnienie: ze wskazaniem na konkretnego użytkownika lub w linku
