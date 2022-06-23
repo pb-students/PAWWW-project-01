@@ -13,7 +13,14 @@
 <div class="container pt-6">
     <div class="columns">
         <div class="column">
-            <div th:object="${information}" class="card">
+            <div th:if="${information == null}">
+                <div class="message is-warning">
+                    <div class="message-header">
+                        <p>Information not found</p>
+                    </div>
+                </div>
+            </div>
+            <div th:if="${information} "th:object="${information}" class="card">
                 <div class="card-header">
                     <div th:text="*{title}?: 'No title'" class="card-header-title"></div>
                 </div>

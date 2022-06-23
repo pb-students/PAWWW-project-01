@@ -50,7 +50,7 @@ public class InformationController {
 
     @GetMapping("/information/read/{id}")
     public String read (Model model, @PathVariable("id") String id) {
-        Information information = informationRepository.findById(Integer.parseInt(id)).orElse(new Information());
+        Information information = informationRepository.findById(Integer.parseInt(id)).orElse(null);
         // TODO: check if user is actually permitted to view this information
         model.addAttribute("userAuthorized", true);
         model.addAttribute("information", information);
