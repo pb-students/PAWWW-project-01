@@ -16,9 +16,11 @@ import net.wvffle.java.pawww.pawwwproject.db.category.CategoryRepository;
 import net.wvffle.java.pawww.pawwwproject.db.information.InformationRepository;
 import net.wvffle.java.pawww.pawwwproject.db.user.User;
 import net.wvffle.java.pawww.pawwwproject.db.user.UserRepository;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import javax.validation.Valid;
 
 @Controller
 public class InformationController {
@@ -56,7 +58,7 @@ public class InformationController {
     }
     
     @PostMapping("/publish")
-    public String publish (HttpServletRequest request, @ModelAttribute Information information) {
+    public String publish (HttpServletRequest request, @ModelAttribute @Valid Information information, BindingResult bindingResult) {
         information.setAuthor(userRepository.findByUsername(request.getRemoteUser()));
         information.setCreated(LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
         informationRepository.save(information);
@@ -75,7 +77,7 @@ public class InformationController {
     }
     
     @PostMapping("/information/edit")
-    public String edit (HttpServletRequest request, Model model, @ModelAttribute Information information) {
+    public String edit (HttpServletRequest request, Model model, @ModelAttribute @Valid Information information, BindingResult bindingResult) {
         User user = userRepository.findByUsername(request.getRemoteUser());
         if (information.getAuthor() != user) {
             model.addAttribute("userAuthorized", false);
