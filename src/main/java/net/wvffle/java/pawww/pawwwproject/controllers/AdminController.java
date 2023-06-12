@@ -3,42 +3,38 @@ package net.wvffle.java.pawww.pawwwproject.controllers;
 import net.wvffle.java.pawww.pawwwproject.db.user.User;
 import net.wvffle.java.pawww.pawwwproject.db.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
 
-@Controller
+@RestController
 public class AdminController {
     @Autowired
     private UserRepository userRepository;
 
     @GetMapping("/list")
-    public String userList (Model model) {
-        model.addAttribute("users", userRepository.findAll());
-        return "showusers";
+    public Iterable<User> userList () {
+        return userRepository.findAll();
     }
 
     @PostMapping("/changerole/{id}")
-    public String userRole (
+    public ResponseEntity<User> userRole (
             @PathVariable String id,
-            @RequestParam String role,
-            Model model
+            @RequestParam String role
     ) {
         Optional<User> optionalUser = userRepository.findById(Integer.parseInt(id));
         if (optionalUser.isEmpty()) {
-            model.addAttribute("userNotFound", id);
-            return "redirect:/list";
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-
-        model.addAttribute("userNotFound", null);
 
         User user = optionalUser.get();
         user.setRole(role);
         userRepository.save(user);
-        return "redirect:/list";
+
+        return ResponseEntity.ok(user);
     }
 
 }

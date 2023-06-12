@@ -4,20 +4,23 @@ import net.wvffle.java.pawww.pawwwproject.db.user.User;
 import net.wvffle.java.pawww.pawwwproject.db.user.UserRepository;
 import net.wvffle.java.pawww.pawwwproject.security.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.HashMap;
+import java.util.Map;
 
-@Controller
+@RestController
 public class AuthController {
     @Autowired
     UserRepository userRepository;
@@ -25,31 +28,20 @@ public class AuthController {
     @Autowired
     PasswordEncoder passwordEncoder;
 
-    @RequestMapping("/login")
-    public String login (
-            Model model,
+    @PostMapping("/login")
+    public Map<String, String> login (
             @RequestParam(required = false) String usernameError,
             @RequestParam(required = false) String passwordError
     ) {
-        model.addAttribute("usernameError", usernameError);
-        model.addAttribute("passwordError", passwordError);
-
-        return "login";
-    }
-
-    @GetMapping("/register")
-    public String register (
-            Model model,
-            @RequestParam(required = false) String usernameError,
-            @RequestParam(required = false) String passwordError
-    ) {
-        User user = new User();
-        model.addAttribute("user", user);
-        return "register";
+        // TODO: Implement login
+        Map<String, String> map = new HashMap<>();
+        map.put("username", usernameError);
+        map.put("password", passwordError);
+        return  map;
     }
 
     @PostMapping("/register")
-    public String register(
+    public ResponseEntity<User> register(
             @ModelAttribute("user") @Valid User user,
             BindingResult bindingResult
     ) {
@@ -58,7 +50,8 @@ public class AuthController {
         }
 
         if (bindingResult.hasErrors()) {
-            return "register";
+            // Return 400 error
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
         String encoded = passwordEncoder.encode(user.getPassword());
@@ -77,6 +70,6 @@ public class AuthController {
         );
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        return "redirect:/";
+        return ResponseEntity.ok(user);
     }
 }

@@ -7,10 +7,9 @@ import java.util.List;
 import net.wvffle.java.pawww.pawwwproject.db.information.Information;
 import net.wvffle.java.pawww.pawwwproject.components.session.SessionSort;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import net.wvffle.java.pawww.pawwwproject.db.category.CategoryRepository;
@@ -20,13 +19,10 @@ import net.wvffle.java.pawww.pawwwproject.db.user.User;
 import net.wvffle.java.pawww.pawwwproject.db.user.UserRepository;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+
 import javax.validation.Valid;
 
-@Controller
+@RestController
 public class InformationController {
     @Autowired
     private InformationRepository informationRepository;
@@ -39,97 +35,87 @@ public class InformationController {
     private SessionSort sessionSort;
     
     @GetMapping("/information/by-me")
-    public String list (HttpServletRequest request, Model model) {
+    public Iterable<Information> list (HttpServletRequest request) {
         User user = userRepository.findByUsername(request.getRemoteUser());
-        model.addAttribute("informations", informationRepository.findAllByAuthor(user, sessionSort.getSort()));
-        return "information/list";
+        return informationRepository.findAllByAuthor(user, sessionSort.getSort());
     }
 
-    @PostMapping("/information/by-me/sort")
-    public String listOrdered (@RequestParam String ordering, @RequestParam boolean descending) {
-        sessionSort.setOrdering(ordering);
-        sessionSort.setDescending(descending);
-        return "redirect:/information/by-me";
-    }
+//    @PostMapping("/information/by-me/sort")
+//    public String listOrdered (@RequestParam String ordering, @RequestParam boolean descending) {
+//        sessionSort.setOrdering(ordering);
+//        sessionSort.setDescending(descending);
+//        return "redirect:/information/by-me";
+//    }
 
     @GetMapping("/information/read/{id}")
-    public String read (Model model, @PathVariable("id") String id) {
-        Information information = informationRepository.findById(Integer.parseInt(id)).orElse(null);
-        // TODO: check if user is actually permitted to view this information
-        model.addAttribute("userAuthorized", true);
-        model.addAttribute("information", information);
-        return "information/read";
+    public Information read (@PathVariable("id") String id) {
+        return informationRepository.findById(Integer.parseInt(id)).orElse(null);
     }
     
     @PostMapping("/publish")
-    public String publish (@ModelAttribute @Valid Information information, BindingResult bindingResult, HttpServletRequest request, Model model) {
+    public ResponseEntity<Information> publish (@ModelAttribute @Valid Information information, BindingResult bindingResult, HttpServletRequest request) {
         List<FieldError> errors = bindingResult.getFieldErrors().stream()
             .filter(err -> !err.getField().equals("author") && !err.getField().equals("created"))
             .toList();
 
         if (errors.size() > 0) {
-            model.addAttribute("categories", categoryRepository.findAll());
-            return "wall";
+            return ResponseEntity.badRequest().build();
         }
-        
+
         information.setAuthor(userRepository.findByUsername(request.getRemoteUser()));
         information.setCreated(LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
         informationRepository.save(information);
-        return "redirect:/information/by-me";
+        return ResponseEntity.ok(information);
     }
     
-    @GetMapping("/information/edit/{id}")
-    public String edit (HttpServletRequest request, Model model, @PathVariable("id") String id) {
-        User user = userRepository.findByUsername(request.getRemoteUser());
-        Information information = informationRepository.findById(Integer.parseInt(id)).orElse(new Information());
-        model.addAttribute("userAuthorized", information.getAuthor() == user);
-        
-        model.addAttribute("categories", categoryRepository.findAll());
-        model.addAttribute("information", information);
-        return "information/edit";
-    }
+//    @GetMapping("/information/edit/{id}")
+//    public String edit (HttpServletRequest request, Model model, @PathVariable("id") String id) {
+//        User user = userRepository.findByUsername(request.getRemoteUser());
+//        Information information = informationRepository.findById(Integer.parseInt(id)).orElse(new Information());
+//        model.addAttribute("userAuthorized", information.getAuthor() == user);
+//
+//        model.addAttribute("categories", categoryRepository.findAll());
+//        model.addAttribute("information", information);
+//        return "information/edit";
+//    }
     
     @PostMapping("/information/edit")
-    public String edit (@ModelAttribute @Valid Information information, BindingResult bindingResult, HttpServletRequest request, Model model) {
+    public ResponseEntity<Information> edit (@ModelAttribute @Valid Information information, BindingResult bindingResult, HttpServletRequest request) {
         List<FieldError> errors = bindingResult.getFieldErrors().stream()
             .filter(err -> !err.getField().equals("author") && !err.getField().equals("created"))
             .toList();
 
         if (errors.size() > 0) {
-            model.addAttribute("categories", categoryRepository.findAll());
-            return "information/edit/";
+            return ResponseEntity.badRequest().build();
         }
         
         User user = userRepository.findByUsername(request.getRemoteUser());
         if (information.getAuthor() != user) {
-            model.addAttribute("userAuthorized", false);
-            model.addAttribute("categories", categoryRepository.findAll());
-            return "information/edit";
+            return ResponseEntity.status(403).build();
         }
         
         informationRepository.save(information);
-        return "redirect:/information/read/" + information.getId().toString();
+        return ResponseEntity.ok(information);
     }
     
-    @GetMapping("/information/delete/{id}")
-    public String deleteGet (HttpServletRequest request, Model model, @PathVariable("id") String id) {
-        User user = userRepository.findByUsername(request.getRemoteUser());
-        Information information = informationRepository.findById(Integer.parseInt(id)).orElse(new Information());
-        if (information.getAuthor() == user) model.addAttribute("userAuthorized", true);
-        else model.addAttribute("userAuthorized", false);
-        return "information/delete";
-    }
+//    @GetMapping("/information/delete/{id}")
+//    public String deleteGet (HttpServletRequest request, @PathVariable("id") String id) {
+//        User user = userRepository.findByUsername(request.getRemoteUser());
+//        Information information = informationRepository.findById(Integer.parseInt(id)).orElse(new Information());
+//        if (information.getAuthor() == user) model.addAttribute("userAuthorized", true);
+//        else model.addAttribute("userAuthorized", false);
+//        return "information/delete";
+//    }
     
     @PostMapping("/information/delete/{id}")
-    public String deletePost (HttpServletRequest request, Model model, @PathVariable("id") String id) {
+    public ResponseEntity<Information> deletePost (HttpServletRequest request, @PathVariable("id") String id) {
         User user = userRepository.findByUsername(request.getRemoteUser());
         Information information = informationRepository.findById(Integer.parseInt(id)).orElse(new Information());
         if (information.getAuthor() != user) {
-            model.addAttribute("userAuthorized", false);
-            return "information/delete";
+            return ResponseEntity.status(403).build();
         }
         
         informationRepository.delete(information);
-        return "redirect:/information/by-me";
+        return ResponseEntity.ok(information);
     }
 }

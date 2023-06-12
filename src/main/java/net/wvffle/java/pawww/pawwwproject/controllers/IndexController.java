@@ -15,15 +15,8 @@ public class IndexController {
     private CategoryRepository categoryRepository;
 
     @GetMapping("/")
-    public String index (HttpServletRequest request, Model model) {
-        if (request.getRemoteUser() == null) {
-            return "index";
-        }
-
-        model.addAttribute("categories", categoryRepository.findAll());
-        model.addAttribute("information", new Information());
-
-        return "wall";
+    public String index () {
+        return "index";
     }
 }
 
